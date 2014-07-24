@@ -72,7 +72,7 @@ class CronModel extends CI_Model {
 		return $results;
 	}
 
-	public function getOldListNo() {
+	public function getOldListNo () {
 		$sql = "SELECT COUNT(*) no FROM em_posts a ";
 
 		if (defined('ENVIRONMENT') && ENVIRONMENT == 'production'){
