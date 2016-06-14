@@ -137,9 +137,6 @@ class MdArticleCategoriesRepository extends EntityRepository
         $req_info['map_results']['where_values'][]      = 'a.company_id = ?'; // doar articolele pentru compania curenta
         $req_info['map_results']['bind_values'][]       = $req_info['map_results']['selected_company'];
 
-        //print_R($req_info['map_results']['where_values']);
-        //print_R($req_info['map_results']['bind_values']);
-
         $select_string  = count($req_info['map_results']['select_values'])>0? implode(' , ',$req_info['map_results']['select_values']):'';
         $where_string   = count($req_info['map_results']['where_values'])>0? ' WHERE '.implode(' AND ',$req_info['map_results']['where_values']):'';
 
@@ -225,7 +222,6 @@ class MdArticleCategoriesRepository extends EntityRepository
     
     public function getParentsTree($criteria){
         $parents = $this->getParentsArray($criteria);
-        //if(empty($parents)) return array();   // disabled: trebuie luat si nivel 0
 
         $condition[] = 'level = 0';
         if(!empty($parents)) foreach($parents as $k=>$v){
@@ -333,9 +329,6 @@ class MdArticleCategoriesRepository extends EntityRepository
                         'comp_id'   =>  $criteria['comp_id']);
         $options = array(); $count = 1;
 
-        // echo "<pre>";
-        // print_r($em->getConnection()->executeQuery($sql, $params)->fetchAll());
-        // die("test");
         $items = $em->getConnection()->executeQuery($sql, $params)->fetchAll();
 
         foreach($items as $k=>&$v){
@@ -358,13 +351,6 @@ class MdArticleCategoriesRepository extends EntityRepository
             }
         }
 
-        // if(isset($options['qty_infl'][$count]['options']))
-        // {
-        //     foreach ($options['qty_infl'][$count]['options'] as $key => $value) {
-        //         if(isset($options['static'][$key]))
-        //             unset($options['static'][$key]);        
-        //     }
-        // }
         if (isset($options['qty_infl']))
             if(count($options['qty_infl'])>0) $options['qty_infl'][$count]['ean'] = ''; /* $options['qty_infl'][$count]['qty'] = ''; */
 
